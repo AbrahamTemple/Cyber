@@ -2,4 +2,6 @@
 
 - 远程操控电脑
 
+![Screenshot](c7e3d813-4c10-4a31-b02e-f95a153b54a8.png)
+
 ![Screenshot](ncat/64cf8a5e-839c-48f6-9450-6e39646f3c0e.png)
