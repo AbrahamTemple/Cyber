@@ -224,3 +224,17 @@ Ncat: Connection from 172.20.10.12:51048.
 ```
 
 ![Screenshot](c7e3d813-4c10-4a31-b02e-f95a153b54a8.png)
+
+## windows
+
+- 已经封装好了的批处理文件
+
+``` cmd
+C:\Windows>nact_rpc.bat
+
+C:\Users\Administrator>netstat -aon|findstr "688"
+  TCP    0.0.0.0:688            0.0.0.0:0              LISTENING       13520
+
+C:\Users\Administrator>taskkill /pid 13520 -t -f
+成功: 已终止 PID 13520 (属于 PID 14160 子进程)的进程。
+```
