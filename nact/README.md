@@ -261,3 +261,5 @@ C:\Users\Administrator>netstat -aon|findstr "688"
 C:\Users\Administrator>taskkill /pid 13520 -t -f
 成功: 已终止 PID 13520 (属于 PID 14160 子进程)的进程。
 ```
+
+[Screenshot](64cf8a5e-839c-48f6-9450-6e39646f3c0e.png)
