@@ -1,36 +1,38 @@
-# ͼƬ����ѹ����
+# 图片隐藏压缩包
 
-## ʹ��
+## 使用
 
-- ƴ��ͼƬ��ѹ����ΪͼƬ
+- 拼接图片和压缩包为图片
 
 ``` bash
 copy /b narmal.jpg+test.rar hidden.jpg
 ```
 
-- ͼƬ���ã�����չ���޸�ΪrarҲ����������ѹ
+- 图片能用，且扩展名修改为rar也可以正常解压
 
-## ԭ��
+## 原理
 
-copy����/B����ֻ�ǰ������ļ��Ķ���������ͷβƴ��
+copy命令/B参数只是把两个文件的二进制数据头尾拼接
 
-����:
+比如:
 
-> copy /B 1.png+2.rar 3.zip
+``` bash
+copy /B 1.png+2.rar 3.zip
+```
 
-����ֻ�ǰ�2.rar������1.png���棬�����3.zip
+上面只是把2.rar接在了1.png后面，输出了3.zip
 
-�еĽ�ѹ������ʶ��3.zip��ֻ����Ϊ������ͷ��βɨ��3.zip������û��zip�ļ�ͷ50 4B
+有的解压软件能识别3.zip，只是因为软件从头到尾扫描3.zip，看有没有zip文件头50 4B
 
-Ȼ������:
+然而假如:
 
 
 ``` bash
 copy /B 2.zip+1.png 3.png
 ```
 
-���������3.png���ܱ��������ͼ����ʶ��
+上面输出的3.png不能被大多数看图软件识别
 
-��ǡ��˵������ͼƬ��ѹ�����Ĳ���copy������ǽ�ѹ��������
+这恰能说明做到图片藏压缩包的不是copy命令，而是解压软件本身
 
-[��������](https://zhidao.baidu.com/question/488505332.html)
+[文章引自](https://zhidao.baidu.com/question/488505332.html)
