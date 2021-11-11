@@ -1,47 +1,47 @@
-# RC4»ùÓÚÃÜÔ¿¼Ó½âÃÜÎÄ¼ş
+# RC4åŸºäºå¯†é’¥åŠ è§£å¯†æ–‡ä»¶
 
-## Ô´Âë
+## æºç 
 
 ``` php
-	function ecrypt($file){
-		$secretKey = md5('https://github.com/AbrahamTemple');
-		if(is_file($file)){
-			 $start = microtime(true);
-			 $context = reader($file);
-			 if(!is_base64($context)){
-				 $enstr  = base64_encode(rc4($context, $secretKey));
-				 writer($file,$enstr);
-				 $elapsed = microtime(true) - $start;
-				 echo $file."¼ÓÃÜÍê³É£¬ÓÃÊ±".number_format($elapsed,10,'.','').'Ãë';
-				 exit;
-			 }
-			 echo $file."¼ÓÃÜÊ§°Ü£¬¸ÃÎÄ¼şÒÑ±»¼ÓÃÜ¹ı";
-			 die;
-		}
-		echo $file."¼ÓÃÜÊ§°Ü£¬Ä¿±êÎÄ¼şÒÑ¶ªÊ§";
-	}
+function ecrypt($file){
+  $secretKey = md5('https://github.com/AbrahamTemple');
+  if(is_file($file)){
+    $start = microtime(true);
+    $context = reader($file);
+    if(!is_base64($context)){
+      $enstr  = base64_encode(rc4($context, $secretKey));
+      writer($file,$enstr);
+      $elapsed = microtime(true) - $start;
+      echo $file."åŠ å¯†å®Œæˆï¼Œç”¨æ—¶".number_format($elapsed,10,'.','').'ç§’';
+      exit;
+    }
+    echo $file."åŠ å¯†å¤±è´¥ï¼Œè¯¥æ–‡ä»¶å·²è¢«åŠ å¯†è¿‡";
+    die;
+  }
+  echo $file."åŠ å¯†å¤±è´¥ï¼Œç›®æ ‡æ–‡ä»¶å·²ä¸¢å¤±";
+}
 	
-	function decrypt($file){
-		$secretKey = md5('https://github.com/AbrahamTemple');
-		if(is_file($file)){
-			 $start = microtime(true);
-			 $context = reader($file);
-			 if(is_base64($context)){
-				 $destr = rc4(base64_decode($context), $secretKey);
-				 writer($file,$destr);
-				 $elapsed = microtime(true) - $start;
-				 echo $file."½âÃÜÍê³É£¬ÓÃÊ±".number_format($elapsed,10,'.','').'Ãë';
-				 exit;
-			 }
-			 echo $file."½âÃÜÊ§°Ü£¬¸ÃÎÄ¼şÒÑ±»½âÃÜ¹ı";
-			 die;
-		} 
-		echo $file."½âÃÜÊ§°Ü£¬Ä¿±êÎÄ¼şÒÑ¶ªÊ§";
-	}
+function decrypt($file){
+  $secretKey = md5('https://github.com/AbrahamTemple');
+  if(is_file($file)) {
+    $start = microtime(true);
+    $context = reader($file);
+    if(is_base64($context)){
+      $destr = rc4(base64_decode($context), $secretKey);
+      writer($file,$destr);
+      $elapsed = microtime(true) - $start;
+      echo $file."è§£å¯†å®Œæˆï¼Œç”¨æ—¶".number_format($elapsed,10,'.','').'ç§’';
+      exit;
+    }
+    echo $file."è§£å¯†å¤±è´¥ï¼Œè¯¥æ–‡ä»¶å·²è¢«è§£å¯†è¿‡";
+    die;
+  } 
+  echo $file."è§£å¯†å¤±è´¥ï¼Œç›®æ ‡æ–‡ä»¶å·²ä¸¢å¤±";
+}
 ```
 
-## ½âÊÍ
+## è§£é‡Š
 
-¶ÁÈ¡ÎÄ¼şµÄËùÓĞÄÚÈİ£¬ÓÃRC4¼ÓÃÜºóÔÙĞ´ÈëÔ­ÎÄ¼ş
+è¯»å–æ–‡ä»¶çš„æ‰€æœ‰å†…å®¹ï¼Œç”¨RC4åŠ å¯†åå†å†™å…¥åŸæ–‡ä»¶
 
-½âÃÜ¹ı³ÌÏà·´
+è§£å¯†è¿‡ç¨‹ç›¸å
