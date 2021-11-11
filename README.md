@@ -6,7 +6,9 @@
 
 ![Screenshot](ncat/64cf8a5e-839c-48f6-9450-6e39646f3c0e.png)
 
-- (文件加解密)[https://github.com/AbrahamTemple/Cyber/copy-b]
+- 文件加解密
+
+> (快速入口)[[https://github.com/AbrahamTemple/Cyber/copy-b]]
 
 - 文件合并
 
