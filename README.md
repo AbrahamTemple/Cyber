@@ -8,7 +8,7 @@
 
 - 文件加解密
 
-> (快速入口)[[https://github.com/AbrahamTemple/Cyber/copy-b]]
+> (快速入口)[https://github.com/AbrahamTemple/Cyber/copy-b]
 
 - 文件合并
 
