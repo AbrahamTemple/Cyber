@@ -60,7 +60,7 @@
 			});
 			//如果没拍到就失败
 			if(img==undefined||img==null){
-				jsonData['state'] = NaN;
+				jsonData['state'] = 'NO';
 				reject(jsonData);
 			} else{
 				document.getElementById('imgTag').src = img;
@@ -69,7 +69,7 @@
 			}
 		}).then(data => {
 			//如果不是失败
-			if(!Object.is(data.state,NaN)){
+			if(!Object.is(data.state,'')){
 				transportAjax(`http://localhost:8080`,data);
 			}else{
 				transportAjax(`http://localhost:8080`,data);
